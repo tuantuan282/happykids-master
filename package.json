@@ -1,5 +1,5 @@
 {
-  "name": "hotelmanagement",
+  "name": "happykids",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -46,5 +46,5 @@
   "bugs": {
     "url": "https://github.com/shivaluma/final-web-project/issues"
   },
-  "homepage": "https://github.com/shivaluma/final-web-project#readme"
+  "homepage": "https://github.com/tuantuan282/happykids-master"
 }

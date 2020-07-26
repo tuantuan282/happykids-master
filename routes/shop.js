@@ -41,7 +41,7 @@ router.post("/add", productController.postAddProduct);
 
 router.get("/add", productController.getAddProduct);
 
-router.get("/view", productController.viewProductList);
+router.get("/view-product", productController.viewProductList);
 
 
 /* Post cho ảnh. */

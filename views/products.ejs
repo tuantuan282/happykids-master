@@ -98,13 +98,13 @@
 						</div>
 					</div>
 					<div class="tt-collapse open">
-						<h3 class="tt-collapse-title">Brand</h3>
+						<h3 class="tt-collapse-title">Label - Brand</h3>
 						<div class="tt-collapse-content">
 							<ul class="tt-list-row" id="product-label">
-								<li><input type="radio" name="label" value="shiro"> Shiro</li>
-								<li><input type="radio" name="label" value="crepp"> Crepp</li>
-								<li><input type="radio" name="label" value="mob"> Mob</li>
-								<li><input type="radio" name="label" value="Gucci"> Gucci</li>
+								<li><input type="radio" name="label" value="A"> A</li>
+								<li><input type="radio" name="label" value="B"> B</li>
+								<li><input type="radio" name="label" value="C"> C</li>
+								<li><input type="radio" name="label" value="D"> D</li>
 							</ul>
 						</div>
 					</div>
@@ -113,7 +113,7 @@
 				
 					<div class="tt-content-aside">
 						<a href="/products" class="tt-promo-03">
-							<img src="/images/custom/listing_promo_img_07.jpg" alt="">
+							<img src="https://via.placeholder.com/350x700" alt="">
 						</a>
 					</div>
 				</div>
@@ -130,8 +130,8 @@
 								<form class="woocommerce-ordering" method="GET" >
 									<select name="orderby" class="orderby" aria-label="Shop order" onchange="this.form.submit()">
 										<option value="" selected disabled hidden><%= sort_value %></option>
-										<option value="1" >Giá thấp tới cao</option>
-										<option value="-1" >Giá cao tới thấp</option>
+										<option value="1" >PRICE: HIGH TO LOW</option>
+										<option value="-1" >PRICE: LOW TO HIGH</option>
 									</select>
 								</form>
 							</div>
@@ -141,7 +141,7 @@
 										<% if(ITEM_PER_PAGE != 1000){%>
 										<option value="" selected disabled hidden><%= ITEM_PER_PAGE%></option>
 										<% }else{%>
-											<option value="" selected disabled hidden>Tất cả</option>
+											<option value="" selected disabled hidden>ALL</option>
 										<% } %>
 										<option value="8" >8</option>
 										<option value="12" >12</option>																	
@@ -158,17 +158,11 @@
 						</div>
 						<div class="tt-product-listing row">
 							<% allProducts.forEach(function(prod) { %>
-
-					
-
 								<div class="col-6 col-md-4 col-lg-3">
 									<div class="tt-product thumbprod-center">
 										<div class="tt-image-box">
-											
-											
 											<a href="/product/<%= prod._id %>">
-												<span class="tt-img"><img src="http://bros-admin.herokuapp.com/assets/images/<%= prod.images[0] %>" data-src="http://bros-admin.herokuapp.com/assets/images/<%= prod.images[0] %>" alt="" class="loaded" data-was-processed="true"></span>
-												<span class="tt-img-roll-over"><img src="http://bros-admin.herokuapp.com/assets/images/<%= prod.images[1] %>" data-src="http://bros-admin.herokuapp.com/assets/images/<%= prod.images[1] %>" alt="" class="loaded" data-was-processed="true"></span>
+												<span class="tt-img"><img src="https://via.placeholder.com/300x400" data-src="https://via.placeholder.com/300x400" alt="" class="loaded" data-was-processed="true"></span>
 											</a>
 										</div>
 										<div class="tt-description">
@@ -176,13 +170,6 @@
 												<ul class="tt-add-info">
 													<li><a href="#"><%= prod.productType.sub %></a></li>
 												</ul>
-												<div class="tt-rating">
-													<i class="icon-star"></i>
-													<i class="icon-star"></i>
-													<i class="icon-star"></i>
-													<i class="icon-star"></i>
-													<i class="icon-star"></i>
-												</div>
 											</div>
 											<h2 class="tt-title"><a href="/product/<%= prod._id %>"><%= prod.name %></a></h2>
 											<div class="tt-price">
@@ -190,17 +177,14 @@
 											</div>
 											<div class="tt-product-inside-hover" >
 												<div class="tt-row-btn">
-													<button class="tt-btn-addtocart thumbprod-button-bg add-cart" data-id="<%= prod._id %>" data-toggle="modal" data-target="#modalAddToCartProduct<%= prod._id %>">THÊM VÀO GIỎ HÀNG</button>
+													<button class="tt-btn-addtocart thumbprod-button-bg add-cart" data-id="<%= prod._id %>" data-toggle="modal" data-target="#modalAddToCartProduct<%= prod._id %>">ADD TO CART</button>
 												</div>
-												<div class="tt-row-btn">
-													
+												<div class="tt-row-btn">		
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-			
-								
 								<div
 									  class="modal fade"
 									  id="modalAddToCartProduct<%= prod._id %>"
@@ -331,10 +315,9 @@
 	</div>
 </div>
 <footer>
-    <% include partials/footer %>
+<% include partials/footer %>
 </footer>
 <a href="#" class="tt-back-to-top">BACK TO TOP</a>
-<!-- Partials -->
 <% include partials/modal-addtocartproduct %>
 <% include partials/modal-quickviewmodal %>
 <% include partials/modal-videoproduct %>

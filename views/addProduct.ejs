@@ -11,29 +11,41 @@
         <div class="container du-lieu">      
             <div class="jumbotron text-center">
                 <h1 class="display-3">Thêm dữ liệu</h1>
+                <h4>* Require</h4>
             </div>
             <form id="upload-widget" method="post" action="/uploadfile" class="dropzone"></form>
             <form method="post">
             <div class="form-group">
                 <label for="name">Title</label>
-                <input type="text" class="form-control" name="name" placeholder="Tên sản phẩm">
+                <input type="text" class="form-control" name="name" placeholder="Name">
             </div>
             <div class="form-group">
                 <label for="description">Description</label>
-                <input type="text" class="form-control" name="description" placeholder="Chi tiết">
+                <input type="text" class="form-control" name="description" placeholder="Description">
             </div>
             <div class="form-group">
                 <label for="price">Price</label>
-                <input type="number" class="form-control" name="price" placeholder="Giá">
+                <input type="number" class="form-control" name="price" placeholder="Price">
             </div>
             <div class="form-group">
                 <label for="stock">Stock</label>
-                <input type="number" class="form-control" name="stock" placeholder="Số lượng sản phẩm">
+                <input type="number" class="form-control" name="stock" placeholder="Stock">
             </div>
             <div class="form-group">
                 <label for="size">Size</label>
                 <input type="text" class="form-control" name="size" placeholder="Size available">
             </div>
+            <div class="form-group">
+                <label for="labels">Labels</label>
+                <input type="text" class="form-control" name="labels" placeholder="Nhãn hiệu">
+            </div>
+            <div class="form-group">
+                <label for="materials">Materials</label>
+                <input type="text" class="form-control" name="materials" placeholder="Chất liệu">
+            </div>
+          
+        
+  
 
             <button style="width: 25%;" type="submit" class="btn btn-secondary pt-2 pb-2">Submit</button>
         </form>  

@@ -7,7 +7,7 @@ const Order = require("../models/order");
 
 var ITEM_PER_PAGE = 12;
 var SORT_ITEM;
-var sort_value = "Giá thấp tới cao";
+var sort_value = "PRICE: LOW TO HIGH";
 var ptype;
 var ptypesub;
 var pprice = 999999;
@@ -34,7 +34,7 @@ exports.getIndexProducts = (req, res, next) => {
         .sort("buyCounts")
         .then(products2 => {
           res.render("index", {
-            title: "Trang chủ",
+            title: "HOMEPAGE",
             user: req.user,
             trendings: products,
             hots: products2,
@@ -95,11 +95,11 @@ exports.getProducts = (req, res, next) => {
   SORT_ITEM = req.query.orderby;
 
   if (SORT_ITEM == -1) {
-    sort_value = "Giá cao tới thấp";
+    sort_value = "PRICE: HIGH TO LOW";
     price = "-1";
   }
   if (SORT_ITEM == 1) {
-    sort_value = "Giá thấp tới cao";
+    sort_value = "PRICE: LOW TO HIGH";
     price = "1";
   }
 
@@ -162,7 +162,7 @@ exports.getProducts = (req, res, next) => {
     })
     .then(products => {
       res.render("products", {
-        title: "Danh sách sản phẩm",
+        title: "Collection",
         user: req.user,
         allProducts: products,
         currentPage: page,
@@ -351,7 +351,7 @@ exports.addOrder = (req, res, next) => {
     cartProduct = cart.generateArray();
   }
   res.render("add-address", {
-    title: "Thông tin giao hàng",
+    title: "Order Infomation",
     user: req.user,
     cartProduct: cartProduct
   });
@@ -400,7 +400,7 @@ exports.mergeCart = (req, res, next) => {
   res.redirect("/");
 };
 
-
+var images = [];
 exports.postAddProduct = async (req, res, next) => {
   var product = new Products({
     name: req.body.name,
@@ -408,6 +408,9 @@ exports.postAddProduct = async (req, res, next) => {
     price: req.body.price,
     stock: req.body.stock,
     size: req.body.size,
+    dateAdded: req.body.dateAdded,
+    labels: req.body.labels,
+    materials: req.body.materials,
     images: images,
   }); 
   product.save();
@@ -423,15 +426,25 @@ exports.getAddProduct = (req, res, next) => {
     cartProduct = cart.generateArray();
   }
   res.render("addProduct", {
-    title: "Thêm",
+    title: "Add Product",
     cartProduct: cartProduct
   });
 };
 
 exports.viewProductList = (req, res, next) => {
-  res.render("viewProduct", {
-    title: "View",
-    prod: product,
-  });
+  var cartProduct;
+  if (!req.session.cart) {
+    cartProduct = null;
+  } else {
+    var cart = new Cart(req.session.cart);
+    cartProduct = cart.generateArray();
+  }
+  Products.find({}).then(
+    product => {
+        res.render("viewProduct", {
+          prod: product,
+          cartProduct: cartProduct,
+        });
+      }
+    );
 };
-
