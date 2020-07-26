@@ -5,23 +5,23 @@ const removeAccent = require("../util/removeAccent");
 const productSchema = new Schema({
   name: {
     type: String,
-    //required: true
+    required: true
   },
   description: {
     type: String,
-//    required: false,
+    required: false,
   },
   stock: {
     type: Number,
-    //required: true
+    required: true
   },
   price: {
     type: Number,
-    //required: true
+    required: true
   },
   size: {
     type: [String],
-    //required: true
+    required: true
   },
   productType: {
     main: String,
@@ -33,11 +33,9 @@ const productSchema = new Schema({
   },
   pattern: {
     type: [String],
-//    required: false
   },
   tags: {
     type: [String],
-//    required: false
   },
   images: {
     type: [String],
@@ -64,27 +62,25 @@ const productSchema = new Schema({
   ofSellers: {
     userId: {
       type: Schema.Types.ObjectId,
-//      required: true,
+//    required: true,
       ref: "User"
     },
     name: String
   },
   labels: {
     type: String,
-//    required: false,
+    required: true
   },
   materials: {
     type: [String],
-    //required: true
+    required: true
   },
   buyCounts: {
     type: Number,
-//    required: false,
     default: 0
   },
   viewCounts: {
     type: Number,
-//    required: false,
     default: 0
   },
   rating: {
@@ -94,7 +90,6 @@ const productSchema = new Schema({
   },
   index: {
     type: Number,
-//    required: false,
     default: 0
   },
   comment: {

@@ -62,8 +62,7 @@ exports.getAccountList = (req, res, next) => {
   Users.find().then(order => {
     res.render("viewAccount", {
       title: "Account List",
-      user: req.body.user,
-      cartProduct: cartProduct,
+      user: req.user,
       order: order,
     });
   });

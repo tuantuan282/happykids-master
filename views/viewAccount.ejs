@@ -19,21 +19,30 @@
                     <thead>
                         <tr>
                             <th><input type="text" class="form-control" placeholder="#" disabled></th>
+                            <th><input type="text" class="form-control" placeholder="First Name" disabled></th>
+                            <th><input type="text" class="form-control" placeholder="Last Name" disabled></th>
                             <th><input type="text" class="form-control" placeholder="Username" disabled></th>
                             <th><input type="text" class="form-control" placeholder="Email" disabled></th>
+                            <th><input type="text" class="form-control" placeholder="Address" disabled></th>
+                            <th><input type="text" class="form-control" placeholder="Phone Number" disabled></th>
                             <th><input type="text" class="form-control" placeholder="Vertify" disabled></th>
+                            <th><input type="text" class="form-control" placeholder="Role" disabled></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <% user.forEach(function(item){ %>
+                        <% order.forEach(function(u){ %>
                             <tr>
-                                <td><%= item._id %></td>
-                                <td><%= item.username %></td>
-                                <td><%= item.email %></td>
-                                <td><%= item.isAuthenticated %></td>
+                                <td><%= u._id %></td>
+                                <td><%= u.firstName %></td>
+                                <td><%= u.lastName %></td>
+                                <td><%= u.username %></td>
+                                <td><%= u.email %></td>
+                                <td><%= u.address %></td>
+                                <td><%= u.phoneNumber %></td>
+                                <td><%= u.isAuthenticated %></td>
+                                <td><%= u.role %></td>
                             </tr>
                         <% }) %>
-                        
                     </tbody>
                 </table>
             </div>
