@@ -31,6 +31,8 @@ router.get("/change-password", authController.getChangePassword);
 
 router.post("/change-password", authController.postChangePassword);
 
-router.get("/view-account", userController.getAccountList);
+//Quản lý user
+
+router.get("/admin/account", userController.getAccountList);
 
 module.exports = router;

@@ -4,9 +4,8 @@
     <% include partials/head %>
   </head>
   <body>
-    <% include partials/loader %>
     <header>
-      <% include partials/header %>
+    <% include partials/header %>
     </header>
     <div class="tt-breadcrumb">
       <div class="container">
@@ -44,11 +43,12 @@
                 <table class="tt-table-shop-01">
                   <thead>
                     <tr>
-                      <th>Order</th>
-                      <th>Date</th>
-                      <th>Address</th>
-                      <th>PhoneNum</th>
-                      <th>TotalPrice</th>
+                      <th>Số Order</th>
+                      <th>Ngày Order</th>
+                      <th>Địa chỉ nhận</th>
+                      <th>SĐT Nhận</th>
+                      <th>Tổng tiền</th>
+                      <th>Tình trạng</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -61,8 +61,10 @@
                         <%= o.phoneNumber %>
                       </td>
                       <td>
-                        $<%= o.cart.totalPrice %> cho <%= o.cart.totalQty %> sản
-                        phẩm
+                        $<%= o.cart.totalPrice %> cho <%= o.cart.totalQty %> sản phẩm
+                      </td>
+                      <td>
+                        <%= o.orderStatus %>
                       </td>
                     </tr>
                     <% }) %>
@@ -97,9 +99,9 @@
                   </tbody>
                 </table>
               </div>
-              <a href="/account-change-info" class="btn btn-border">Change info</a>
+              <a href="/account-change-info" class="btn btn-border">Change infomation</a>
               </div>
-              <a href="/change-password" class="btn btn-border">Change Password</a>
+              <a href="/change-password" class="btn btn-border">Change Password!!</a>
           </div>
         </div>
       </div>

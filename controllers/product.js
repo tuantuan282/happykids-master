@@ -162,7 +162,7 @@ exports.getProducts = (req, res, next) => {
     })
     .then(products => {
       res.render("products", {
-        title: "Collection",
+        title: "COLLECTION",
         user: req.user,
         allProducts: products,
         currentPage: page,
@@ -364,7 +364,8 @@ exports.postAddOrder = async (req, res, next) => {
       user: req.user,
       cart: req.session.cart,
       address: req.body.address,
-      phoneNumber: req.body.phone
+      phoneNumber: req.body.phone,
+      orderStatus: req.body.orderStatus
     });
 
     for (var id in req.session.cart.items) {
@@ -442,6 +443,26 @@ exports.viewProductList = (req, res, next) => {
   Products.find({}).then(
     product => {
         res.render("viewProduct", {
+          title: "Product List",
+          prod: product,
+          cartProduct: cartProduct,
+        });
+      }
+    );
+};
+
+exports.viewAdmin = (req, res, next) => {
+  var cartProduct;
+  if (!req.session.cart) {
+    cartProduct = null;
+  } else {
+    var cart = new Cart(req.session.cart);
+    cartProduct = cart.generateArray();
+  }
+  Products.find({}).then(
+    product => {
+        res.render("viewAdmin", {
+          title: "Admin",
           prod: product,
           cartProduct: cartProduct,
         });

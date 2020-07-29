@@ -19,6 +19,11 @@ const orderSchema = new Schema({
   phoneNumber: {
     type: Number,
     required: true
+  },
+  //
+  orderStatus: {
+    type: String,
+    default: "Đang chờ xử lý"
   }
 });
 

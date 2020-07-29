@@ -1,6 +1,5 @@
 var express = require("express");
 var router = express.Router();
-
 const productController = require("../controllers/product");
 
 // Get homepage và product page
@@ -37,12 +36,13 @@ router.get("/merge-cart", productController.mergeCart);
 
 // Quản lý sản phẩm
 
-router.post("/add", productController.postAddProduct);
+router.post("/admin/product/add", productController.postAddProduct);
 
-router.get("/add", productController.getAddProduct);
+router.get("/admin/product/add", productController.getAddProduct);
 
-router.get("/view-product", productController.viewProductList);
+router.get("/admin/product", productController.viewProductList);
 
+router.get("/admin", productController.viewAdmin);
 
 /* Post cho ảnh. */
 var multer  = require('multer');
