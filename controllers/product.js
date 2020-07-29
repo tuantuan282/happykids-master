@@ -1,9 +1,9 @@
+var express = require("express");
 const Products = require("../models/product");
 const Categories = require("../models/productCategory");
 const Cart = require("../models/cart");
 var Users = require("../models/user");
 const Order = require("../models/order");
-
 
 var ITEM_PER_PAGE = 12;
 var SORT_ITEM;
@@ -401,36 +401,6 @@ exports.mergeCart = (req, res, next) => {
   res.redirect("/");
 };
 
-var images = [];
-exports.postAddProduct = async (req, res, next) => {
-  var product = new Products({
-    name: req.body.name,
-    description: req.body.description,
-    price: req.body.price,
-    stock: req.body.stock,
-    size: req.body.size,
-    dateAdded: req.body.dateAdded,
-    labels: req.body.labels,
-    materials: req.body.materials,
-    images: images,
-  }); 
-  product.save();
-  res.redirect("/");
-};
-  
-exports.getAddProduct = (req, res, next) => {
-  var cartProduct;
-  if (!req.session.cart) {
-    cartProduct = null;
-  } else {
-    var cart = new Cart(req.session.cart);
-    cartProduct = cart.generateArray();
-  }
-  res.render("addProduct", {
-    title: "Add Product",
-    cartProduct: cartProduct
-  });
-};
 
 exports.viewProductList = (req, res, next) => {
   var cartProduct;
@@ -468,4 +438,56 @@ exports.viewAdmin = (req, res, next) => {
         });
       }
     );
+};
+
+exports.postAddProduct = async (req, res, next) => {
+  var product = new Products({
+    name: req.body.name,
+    description: req.body.description,
+    price: req.body.price,
+    stock: req.body.stock,
+    size: req.body.size,
+    dateAdded: req.body.dateAdded,
+    labels: req.body.labels,
+    materials: req.body.materials,
+    productType: { 
+      main: req.body.main, 
+      sub: req.body.sub,
+    },
+    images: images,
+  }); 
+  product.save();
+  res.redirect("/admin/product");
+};
+
+exports.getAddProduct = (req, res, next) => {
+  var cartProduct;
+  if (!req.session.cart) {
+    cartProduct = null;
+  } else {
+    var cart = new Cart(req.session.cart);
+    cartProduct = cart.generateArray();
+  }
+  res.render("addProduct", {
+    title: "Add Product",
+    cartProduct: cartProduct
+  });
+};
+
+/* Post cho ảnh. */
+var images = [];
+exports.getImage = (req, res, next) => {
+  images.push(req.files[0].path); // đưa path của img vào mảng images  
+  res.status(200).send(req.files); // gửi mã 200 khi up thành công
+};
+
+exports.getDeleteProduct = (req, res, next) => {
+  var prodId = req.params.productId;
+  Products.findByIdAndRemove(prodId, (err, product) => {
+    if (err) {
+      return res.redirect("back");
+    }
+    product.save();
+    res.redirect("back");
+  });
 };

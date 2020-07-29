@@ -1,4 +1,6 @@
 var express = require("express");
+var mongoose = require('mongoose');
+
 var router = express.Router();
 const productController = require("../controllers/product");
 
@@ -8,11 +10,11 @@ router.get("/", productController.getIndexProducts);
 
 router.get("/product/:productId", productController.getProduct);
 
+router.post("/product/:productId", productController.postComment);
+
 router.get("/products/:productType?/:productChild?",productController.getProducts);
 
 router.post("/products/:productType*?", productController.postNumItems);
-
-router.post("/product/:productId", productController.postComment);
 
 router.get("/search", productController.getSearch);
 
@@ -35,18 +37,7 @@ router.get("/delete-item/:productId", productController.getDeleteItem);
 router.get("/merge-cart", productController.mergeCart);
 
 // Quản lý sản phẩm
-
-router.post("/admin/product/add", productController.postAddProduct);
-
-router.get("/admin/product/add", productController.getAddProduct);
-
-router.get("/admin/product", productController.viewProductList);
-
-router.get("/admin", productController.viewAdmin);
-
-/* Post cho ảnh. */
 var multer  = require('multer');
-var images = [];
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, './uploads')
@@ -54,12 +45,21 @@ var storage = multer.diskStorage({
     filename: function (req, file, cb) {
       cb(null, Date.now()+ '-' + file.originalname)
     }
-  })
-var upload = multer({ storage: storage })
-router.post('/uploadfile', upload.any(), function(req, res, next) {
-    images.pop(req.files[0].path); // đưa path của img vào mảng images
-    images.push(req.files[0].path); // đưa path của img vào mảng images
-    res.status(200).send(req.files); // gửi mã 200 khi up thành công
   });
+var upload = multer({ storage: storage });
+router.post('/upimage', upload.any(), productController.getImage);
+
+router.get("/admin", productController.viewAdmin);
+
+router.post("/admin/product/add", productController.postAddProduct);
+
+router.get("/admin/product/add", productController.getAddProduct);
+
+router.get("/delete:", productController.getDeleteProduct);
+
+router.get("/admin/product", productController.viewProductList);
+
+
+
   
 module.exports = router;

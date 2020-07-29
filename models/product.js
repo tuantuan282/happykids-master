@@ -5,6 +5,7 @@ const removeAccent = require("../util/removeAccent");
 const productSchema = new Schema({
   name: {
     type: String,
+    text: true,
     required: true
   },
   description: {
@@ -25,7 +26,7 @@ const productSchema = new Schema({
   },
   productType: {
     main: String,
-    sub: String
+    sub: String,
   },
   color: {
     type: [String],

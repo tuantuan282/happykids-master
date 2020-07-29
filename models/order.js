@@ -24,6 +24,10 @@ const orderSchema = new Schema({
   orderStatus: {
     type: String,
     default: "Đang chờ xử lý"
+  },
+  totalPrice: {
+    type: Number,
+    default: 0
   }
 });
 

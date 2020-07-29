@@ -1,0 +1,32 @@
+<% include partials/dashboard %>
+<div class="container">
+    <hr>
+    <div class="row">
+        <div class="panel panel-primary filterable">
+            <div class="panel-heading">
+                <h3 class="panel-title">Category</h3>
+                <button type="button" class="btn btn-dark rounded-0"><a href="">Add Category</a></button>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th><input type="text" class="form-control" placeholder="Tên" disabled></th>
+                        <th><input type="text" class="form-control" placeholder="Hình ảnh" disabled></th>
+                </tr>
+                </thead>
+                <tbody>
+                    <% prod.forEach(function(product){ %>
+                    <tr>
+                        <td><%= product.price %></td>
+                        <td><%= product.price %></td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- /#page-content-wrapper -->
+<% include partials/script %>
+</body>
+</html>
