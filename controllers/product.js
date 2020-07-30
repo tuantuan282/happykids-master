@@ -403,38 +403,22 @@ exports.mergeCart = (req, res, next) => {
 
 
 exports.viewProductList = (req, res, next) => {
-  var cartProduct;
-  if (!req.session.cart) {
-    cartProduct = null;
-  } else {
-    var cart = new Cart(req.session.cart);
-    cartProduct = cart.generateArray();
-  }
   Products.find({}).then(
     product => {
         res.render("viewProduct", {
           title: "Product List",
           prod: product,
-          cartProduct: cartProduct,
         });
       }
     );
 };
 
 exports.viewAdmin = (req, res, next) => {
-  var cartProduct;
-  if (!req.session.cart) {
-    cartProduct = null;
-  } else {
-    var cart = new Cart(req.session.cart);
-    cartProduct = cart.generateArray();
-  }
   Products.find({}).then(
     product => {
         res.render("viewAdmin", {
           title: "Admin",
           prod: product,
-          cartProduct: cartProduct,
         });
       }
     );
@@ -461,7 +445,6 @@ exports.postAddProduct = async (req, res, next) => {
 };
 
 exports.getAddProduct = (req, res, next) => {
-  var cartProduct;
   if (!req.session.cart) {
     cartProduct = null;
   } else {
@@ -489,5 +472,44 @@ exports.getDeleteProduct = (req, res, next) => {
     }
     product.save();
     res.redirect("back");
+  });
+};
+
+
+exports.viewOrderList = (req, res, next) => {
+  Order.find({}, (err, order) => {
+    res.render('viewOrder', {
+      order: order,
+    });
+});
+};
+
+exports.viewCategoryList= (req, res, next) => {
+  Categories.find({}, (err, category) => {
+    res.render('viewCategory', {
+      category: category,
+    });
+});
+};
+
+exports.postAddCategory = async (req, res, next) => {
+  var category = new Categories({
+    name: req.body.name,
+    childName: req.body.childName,
+  }); 
+  category.save();
+  res.redirect("/admin/category");
+};
+
+exports.getAddCategory = (req, res, next) => {
+  if (!req.session.cart) {
+    cartProduct = null;
+  } else {
+    var cart = new Cart(req.session.cart);
+    cartProduct = cart.generateArray();
+  }
+  res.render("addCategory", {
+    title: "Add Category",
+    cartProduct: cartProduct
   });
 };

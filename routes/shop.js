@@ -59,6 +59,16 @@ router.get("/delete:", productController.getDeleteProduct);
 
 router.get("/admin/product", productController.viewProductList);
 
+router.get("/admin/order", productController.viewOrderList);
+
+router.get("/admin/category", productController.viewCategoryList);
+
+router.post("/admin/category/add", productController.postAddCategory);
+
+router.get("/admin/category/add", productController.getAddCategory);
+
+
+
 
 
   
