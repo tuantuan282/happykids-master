@@ -152,7 +152,7 @@
                            <div class="col-6 col-md-4 col-lg-3">
                               <div class="tt-product thumbprod-center">
                                  <div class="tt-image-box">
-                                    <a href="/product/<%= prod._id %>">
+                                    <a href="/<%= prod._id %>">
                                     <span class="tt-img"><img src="<%= prod.images[0] %>" data-src="<%= prod.images[0] %>" alt="" class="loaded" data-was-processed="true"></span>
                                     </a>
                                  </div>
@@ -162,7 +162,7 @@
                                           <li><a href="#"><%= prod.productType.sub %></a></li>
                                        </ul>
                                     </div>
-                                    <h2 class="tt-title"><a href="/product/<%= prod._id %>"><%= prod.name %></a></h2>
+                                    <h2 class="tt-title"><a href="/<%= prod._id %>"><%= prod.name %></a></h2>
                                     <div class="tt-price">
                                        $<%= prod.price %>
                                     </div>
@@ -177,7 +177,7 @@
                               </div>
                            </div>
                            <!--Modal Cart -->
-                           <% }); %>
+                        <% }); %>
                         </div>
                         <nav aria-label="Page navigation example" style="margin-top: 20px;">
                            <ul class="pagination justify-content-center">

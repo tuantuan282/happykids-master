@@ -26,7 +26,6 @@ exports.getIndexProducts = (req, res, next) => {
     var cart = new Cart(req.session.cart);
     cartProduct = cart.generateArray();
   }
-
   Products.find()
     .limit(4)
     .then(products => {
@@ -46,33 +45,6 @@ exports.getIndexProducts = (req, res, next) => {
     .catch(err => {
       console.log(err);
     });
-};
-
-exports.getProduct = (req, res, next) => {
-  var cartProduct;
-  if (!req.session.cart) {
-    cartProduct = null;
-  } else {
-    var cart = new Cart(req.session.cart);
-    cartProduct = cart.generateArray();
-  }
-  const prodId = req.params.productId;
-  Products.findOne({ _id: `${prodId}` }).then(product => {
-    Products.find({ "productType.main": product.productType.main }).then(
-      relatedProducts => {
-        res.render("product", {
-          title: `${product.name}`,
-          user: req.user,
-          prod: product,
-          comments: product.comment.items,
-          allComment: product.comment.total,
-          cartProduct: cartProduct,
-          relatedProducts: relatedProducts
-        });
-        product.save();
-      }
-    );
-  });
 };
 
 exports.getProducts = (req, res, next) => {
@@ -252,31 +224,6 @@ exports.getSearch = (req, res, next) => {
     });
 };
 
-exports.postComment = (req, res, next) => {
-  const prodId = req.params.productId;
-  var tname;
-  if (typeof req.user === "undefined") {
-    tname = req.body.inputName;
-  } else {
-    tname = req.user.username;
-  }
-  Products.findOne({
-    _id: prodId
-  }).then(product => {
-    var today = new Date();
-    product.comment.items.push({
-      title: req.body.inputTitle,
-      content: req.body.inputContent,
-      name: tname,
-      date: today,
-      star: req.body.rating
-    });
-    product.comment.total++;
-    product.save();
-  });
-  res.redirect("back");
-};
-
 exports.getCart = (req, res, next) => {
   var cartProduct;
   if (!req.session.cart) {
@@ -428,16 +375,7 @@ exports.viewProductList = (req, res, next) => {
     );
 };
 
-exports.viewAdmin = (req, res, next) => {
-  Products.find({}).then(
-    product => {
-        res.render("viewAdmin", {
-          title: "Admin",
-          prod: product,
-        });
-      }
-    );
-};
+
 
 exports.postAddProduct = async (req, res, next) => {
   var product = new Products({
@@ -453,6 +391,8 @@ exports.postAddProduct = async (req, res, next) => {
       main: req.body.main, 
       sub: req.body.sub,
     },
+    tags: req.body.tags,
+
     images: images,
   }); 
   product.save();
@@ -466,9 +406,12 @@ exports.getAddProduct = (req, res, next) => {
     var cart = new Cart(req.session.cart);
     cartProduct = cart.generateArray();
   }
-  res.render("addProduct", {
-    title: "Add Product",
-    cartProduct: cartProduct,
+  Categories.find({}, (err, category) => {
+    res.render("addProduct", {
+      title: "Add Product",
+      cartProduct: cartProduct,
+      category: category,
+    });
   });
 };
 

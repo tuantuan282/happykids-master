@@ -144,7 +144,7 @@
                   <div class="col-6 col-md-4 col-lg-3">
                      <div class="tt-product thumbprod-center">
                         <div class="tt-image-box">					
-                           <a href="/product/<%= prod._id %>">
+                           <a href="/<%= prod._id %>">
                            <span class="tt-img"><img src="<%= prod.images[0] %>" data-src="<%= prod.images[0] %>" alt="" class="loaded" data-was-processed="true"></span>
                            <span class="tt-img-roll-over"><img src="<%= prod.images[1] %>" data-src="<%= prod.images[1] %>" alt="" class="loaded" data-was-processed="true"></span>
                            </a>
@@ -162,7 +162,7 @@
                                  <i class="icon-star"></i>
                               </div>
                            </div>
-                           <h2 class="tt-title"><a href="product/<%= prod._id %>"><%= prod.name %></a></h2>
+                           <h2 class="tt-title"><a href="/<%= prod._id %>"><%= prod.name %></a></h2>
                            <div class="tt-price">
                               $<%= prod.price %>
                            </div>
@@ -189,7 +189,7 @@
                   <div class="col-6 col-md-4 col-lg-3">
                      <div class="tt-product thumbprod-center">
                         <div class="tt-image-box">				
-                           <a href="/product/<%= prod._id %>">
+                           <a href="/<%= prod._id %>">
                            <span class="tt-img"><img src="<%= prod.images[0] %>" data-src="<%= prod.images[0] %>" alt="" class="loaded" data-was-processed="true"></span>
                            <span class="tt-img-roll-over"><img src="<%= prod.images[1] %>" data-src="<%= prod.images[1] %>" alt="" class="loaded" data-was-processed="true"></span>
                            </a>
@@ -207,7 +207,7 @@
                                  <i class="icon-star"></i>
                               </div>
                            </div>
-                           <h2 class="tt-title"><a href="product/<%= prod._id %>"><%= prod.name %></a></h2>
+                           <h2 class="tt-title"><a href="/<%= prod._id %>"><%= prod.name %></a></h2>
                            <div class="tt-price">
                               $<%= prod.price %>
                            </div>
@@ -264,7 +264,7 @@
          </div>
       </div>
       <footer>
-         <% include partials/footer %>
+      <% include partials/footer %>
       </footer>
       <a href="#" class="tt-back-to-top">BACK TO TOP</a>
       <% include partials/modal-quickviewmodal %>

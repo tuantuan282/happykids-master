@@ -4,13 +4,9 @@ var mongoose = require('mongoose');
 var router = express.Router();
 const productController = require("../controllers/product");
 
-// Get homepage và product page
+// Get homepage và collection page
 
 router.get("/", productController.getIndexProducts);
-
-router.get("/product/:productId", productController.getProduct);
-
-router.post("/product/:productId", productController.postComment);
 
 router.get("/products/:productType?/:productChild?",productController.getProducts);
 
@@ -48,8 +44,6 @@ var storage = multer.diskStorage({
   });
 var upload = multer({ storage: storage });
 router.post('/upimage', upload.any(), productController.getImage);
-
-router.get("/admin", productController.viewAdmin);
 
 router.post("/admin/product/add", productController.postAddProduct);
 

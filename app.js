@@ -9,6 +9,7 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require('passport');
 const shopRouter = require('./routes/shop');
+const productRouter = require('./routes/product')
 const authRouter = require('./routes/auth');
 const flash = require('connect-flash');
 const app = express();
@@ -55,6 +56,8 @@ app.use(passport.session());
 
 app.use(shopRouter);
 app.use(authRouter);
+app.use(productRouter);
+
 
 // pass passport for configuration
 require('./config/passport')(passport);
