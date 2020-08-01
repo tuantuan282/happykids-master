@@ -49,7 +49,7 @@ router.post("/admin/product/add", productController.postAddProduct);
 
 router.get("/admin/product/add", productController.getAddProduct);
 
-router.get("/delete:", productController.getDeleteProduct);
+router.get("/delete.:idcanxoa", productController.getDeleteProduct);
 
 router.get("/admin/product", productController.viewProductList);
 

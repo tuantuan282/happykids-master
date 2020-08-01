@@ -423,14 +423,21 @@ exports.getImage = (req, res, next) => {
 };
 
 exports.getDeleteProduct = (req, res, next) => {
-  var prodId = req.params.productId;
-  Products.findByIdAndRemove(prodId, (err, product) => {
-    if (err) {
-      return res.redirect("back");
-    }
-    product.save();
-    res.redirect("back");
-  });
+  //var prodId = req.params.productId;
+  var idcanxoa = chuyenObjectId(req.params.idcanxoa);
+  //Products.findByIdAndDelete({_id: idcanxoa});
+    // prodId, (err, product) => {
+    // if (err) {
+    //   return res.redirect("back");
+    // }
+    // product.save();
+    //res.redirect("/admin/product");
+  //});
+  Products.find({_id: idcanxoa}, function (err, prod) {
+    Products.deleteOne({_id: idcanxoa}, function (err, prod) {
+      res.redirect('/admin/product');
+    });
+  })
 };
 
 
