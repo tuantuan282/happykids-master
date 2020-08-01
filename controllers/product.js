@@ -15,6 +15,7 @@ var psize;
 var plabel;
 var plowerprice;
 var price;
+var viewCounts;
 var searchText;
 
 exports.getIndexProducts = (req, res, next) => {
@@ -102,6 +103,19 @@ exports.getProducts = (req, res, next) => {
     sort_value = "PRICE: LOW TO HIGH";
     price = "1";
   }
+  
+  if (SORT_ITEM == -2) {
+    sort_value = "VIEW: HIGH TO LOW";
+    viewCounts = "-1";
+  }
+  if (SORT_ITEM == 2) {
+    sort_value = "VIEW: LOW TO HIGH";
+    viewCounts = "1";
+  }
+
+
+
+
 
   if (Object.entries(req.query).length == 0) {
     ptype = "";
@@ -157,7 +171,8 @@ exports.getProducts = (req, res, next) => {
         .skip((page - 1) * ITEM_PER_PAGE)
         .limit(ITEM_PER_PAGE)
         .sort({
-          price
+          price,
+          viewCounts,
         });
     })
     .then(products => {
@@ -453,7 +468,7 @@ exports.getAddProduct = (req, res, next) => {
   }
   res.render("addProduct", {
     title: "Add Product",
-    cartProduct: cartProduct
+    cartProduct: cartProduct,
   });
 };
 

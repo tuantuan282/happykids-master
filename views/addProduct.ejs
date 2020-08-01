@@ -6,7 +6,6 @@
             <h4>* Require</h4>
         </div>
         <form id="upload-widget" method="post" action="/upimage" class="dropzone m-3"></form>
-
         <form method="post">
         <div class="row">
             <div class="col">
@@ -19,6 +18,7 @@
                 <div class="form-group">
                     <label for="main">Main Category</label>
                     <input type="text" class="form-control" name="main">
+
                 </div>
             </div>
             <div class="col">
@@ -44,7 +44,7 @@
             <div class="col">
                 <div class="form-group">
                     <label for="size">Size</label>
-                    <select class="js-example-basic-multiple form-control" name="size" multiple="multiple">
+                    <select class="multiple form-control" name="size" multiple="multiple">
                         <option value="S"> S </option>
                         <option value="M"> M </option>
                         <option value="L"> L </option>
@@ -80,7 +80,7 @@
     <% include partials/script %>
     <script type="text/javascript">
         $(document).ready(function() {
-        $('.js-example-basic-multiple').select2({
+        $('.multiple').select2({
             allowClear: true,
         });
     });

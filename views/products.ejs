@@ -123,8 +123,10 @@
                               <form class="woocommerce-ordering" method="GET" >
                                  <select name="orderby" class="orderby" aria-label="Shop order" onchange="this.form.submit()">
                                     <option value="" selected disabled hidden><%= sort_value %></option>
-                                    <option value="1" >PRICE: LOW FIRST</option>
-                                    <option value="-1" >PRICE: HIGH FIRST</option>
+                                    <option value="1" >PRICE: LOW TO HIGH</option>
+                                    <option value="-1" >PRICE: HIGH TO LOW</option>
+                                    <option value="2" >VIEW: LOW TO HIGH</option>
+                                    <option value="-2" >VIEW: HIGH TO LOW</option>
                                  </select>
                               </form>
                            </div>
@@ -214,10 +216,6 @@
          <% include partials/footer %>
       </footer>
       <a href="#" class="tt-back-to-top">BACK TO TOP</a>
-      <% include partials/modal-addtocartproduct %>
-      <% include partials/modal-quickviewmodal %>
-      <% include partials/modal-videoproduct %>
-      <% include partials/modal-subscribegood %>
       <% include partials/script %>
    </body>
 </html>
