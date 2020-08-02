@@ -18,10 +18,10 @@ const compression = require('compression');
 app.use(compression());
 mongoose.set('useCreateIndex', true);
 
-//const urlConnect = process.env.DB;
-
+var url = process.env.MONGOLAB_URI;
+var urlConnect  = "mongodb+srv://happykid_uit:happykid_uit@cluster0.bly9c.mongodb.net/test?retryWrites=true&w=majority";
 // Connect to database
-mongoose.connect('mongodb://localhost:27017/Test',  {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false}, err => {
+mongoose.connect(url || 'mongodb://localhost:27017/Test',  {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false}, err => {
   if (err) throw err;
   console.log('Connected!! --> http://localhost:3000/admin');
 });
