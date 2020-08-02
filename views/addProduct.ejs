@@ -19,7 +19,7 @@
                     <label for="main">Main Category</label>
                     <select class="form-control" name="main">
                     <% category.forEach(function(cat){ %>
-                        <option value="<%= cat.name %>"><%= cat.name %></option>
+                        <option id="catselect" value="<%= cat.name %>"><%= cat.name %></option>
                     <% }) %>
                     </select>
                 </div>
@@ -109,6 +109,17 @@
             tokenSeparators: [',',' ']
         });
     });
+    </script>
+    <script>
+        $('#catselect').change(function () {
+            var selected_category = $(this).children("option:selected").val();
+            var child_category = [];
+            for (const cat of categories) {
+                if (selected_category = cat.name) {
+                    child_category = cat.childname;
+                }
+            }
+        });
     </script>
 </body>
 </html>
