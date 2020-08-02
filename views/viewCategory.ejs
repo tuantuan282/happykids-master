@@ -12,6 +12,7 @@
                     <tr>
                         <th><input type="text" class="form-control" placeholder="Main" disabled></th>
                         <th><input type="text" class="form-control" placeholder="Sub" disabled></th>
+                        <th><input type="text" class="form-control" placeholder="#" disabled></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -19,6 +20,9 @@
                     <tr>
                         <td><%= cat.name %></td>
                         <td><%= cat.childName %></td>
+                        <td>
+                            <a href="/category/delete" class="btn btn-secondary rounded-0">Delete</a>                                
+                        </td>
                     </tr>
                     <% }) %>
                 </tbody>
