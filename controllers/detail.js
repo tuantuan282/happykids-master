@@ -5,18 +5,6 @@ const Cart = require("../models/cart");
 var Users = require("../models/user");
 const Order = require("../models/order");
 
-var ITEM_PER_PAGE = 12;
-var SORT_ITEM;
-var sort_value = "PRICE: LOW TO HIGH";
-var ptype;
-var ptypesub;
-var pprice = 999999;
-var psize;
-var plabel;
-var plowerprice;
-var price;
-var searchText;
-
 exports.getProduct = (req, res, next) => {
     var cartProduct;
     if (!req.session.cart) {
