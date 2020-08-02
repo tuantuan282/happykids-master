@@ -55,6 +55,8 @@ router.get("/admin/product", productController.viewProductList);
 
 router.get("/admin/order", productController.viewOrderList);
 
+router.post("/admin/order", productController.changeOrderStatus);
+
 router.get("/admin/category", productController.viewCategoryList);
 
 router.post("/admin/category/add", productController.postAddCategory);

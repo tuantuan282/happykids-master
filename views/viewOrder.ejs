@@ -10,22 +10,24 @@
                     <thead>
                         <tr>
                             <th><input type="text" class="form-control" placeholder="UserID" disabled></th>
-                            <th><input type="text" class="form-control" placeholder="Số lượng" disabled></th>
+                            <th><input type="text" class="form-control" placeholder="OrderID" disabled></th>
                             <th><input type="text" class="form-control" placeholder="Ngày đặt hàng" disabled></th>
                             <th><input type="text" class="form-control" placeholder="Địa chỉ nhận" disabled></th>
                             <th><input type="text" class="form-control" placeholder="Số điện thoại" disabled></th>
-                            <th><input type="text" class="form-control" placeholder="Nhận" disabled></th>
-                            <th><input type="text" class="form-control" placeholder="Tình trạng" disabled></th>
+                            <th><input type="text" class="form-control" placeholder="SP" disabled></th>
+                            <th><input type="text" class="form-control" placeholder="Total" disabled></th>
+                            <th><input type="text" class="form-control" placeholder="Status" disabled></th>
                         </tr>
                     </thead>
                     <tbody>
                         <% order.forEach(function(o){ %>
                             <tr>
                                 <td><%= o.user %></td>
-                                <td><%= o.cart.totalQty %></td>
+                                <td><%= o._id %></td>
                                 <td><%= o.date %></td>
                                 <td><%= o.address %></td>
                                 <td><%= o.phoneNumber %></td>
+                                <td><%= o.cart.totalQty %></td>
                                 <td><%= o.cart.totalPrice %> USD</td>
                                 <td><%= o.orderStatus %></td>
                             </tr>

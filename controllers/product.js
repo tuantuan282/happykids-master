@@ -4,6 +4,7 @@ const Categories = require("../models/productCategory");
 const Cart = require("../models/cart");
 var Users = require("../models/user");
 const Order = require("../models/order");
+const order = require("../models/order");
 
 var ITEM_PER_PAGE = 12;
 var SORT_ITEM;
@@ -84,10 +85,6 @@ exports.getProducts = (req, res, next) => {
     sort_value = "VIEW: LOW TO HIGH";
     viewCounts = "1";
   }
-
-
-
-
 
   if (Object.entries(req.query).length == 0) {
     ptype = "";
@@ -448,6 +445,16 @@ exports.viewOrderList = (req, res, next) => {
     });
 });
 };
+
+
+exports.changeOrderStatus = (req, res, next) => {
+  var orderStatus = new Order({
+    orderStatus: req.body.orderStatus,
+  }); 
+  order.save();
+  res.redirect("/admin/order");
+};
+
 
 exports.viewCategoryList= (req, res, next) => {
   Categories.find({}, (err, category) => {
