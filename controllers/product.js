@@ -81,11 +81,11 @@ exports.getProducts = (req, res, next) => {
   
   if (SORT_ITEM == -2) {
     sort_value = "NAME: A-Z";
-    name = "-1";
+    name = "1";
   }
   if (SORT_ITEM == 2) {
     sort_value = "NAME: Z-A";
-    name = "1";
+    name = "-1";
   }
 
   if (Object.entries(req.query).length == 0) {
