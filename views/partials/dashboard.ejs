@@ -4,7 +4,6 @@
   <meta charset="utf-8" />
   <title><%= (typeof title != "undefined" ? title : "") %></title>
   <meta name="keywords" content="<%= (typeof title != "undefined" ? title : "") %>"> <meta name="description" content="<%= (typeof title != "undefined" ? title : "") %>"> <meta name="author" content="<%= (typeof title != "undefined" ? title : "") %>">
-  <link rel="shortcut icon" href="/favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <link href="/external/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="/stylesheets/simple-sidebar.css" rel="stylesheet">
@@ -23,6 +22,8 @@
         <a href="/admin/category" class="list-group-item list-group-item-action bg-light">Category</a>
         <a href="/admin/order" class="list-group-item list-group-item-action bg-light">Order</a>
         <a href="/admin/content" class="list-group-item list-group-item-action bg-light">Content</a>
+        <a href="/admin/label" class="list-group-item list-group-item-action bg-light">Label</a>
+
       </div>
     </div>
     <!-- /#sidebar-wrapper -->
@@ -37,16 +38,6 @@
           <ul class="navbar-nav ml-auto mt-2 mt-lg-0"> 
             <li class="nav-item active">
               <a class="nav-link" href="/admin">Admin <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" data-toggle="dropdown">
-                Dropdown
-              </a>
-              <div class="dropdown-menu dropdown-menu-right">
-                <a class="dropdown-item" href="/">Action</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="/">Something</a>
-              </div>
             </li>
           </ul>
         </div>

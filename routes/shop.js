@@ -61,12 +61,17 @@ router.post("/admin/category/add", productController.postAddCategory);
 
 router.get("/admin/category/add", productController.getAddCategory);
 
+router.get("/admin/label", productController.viewLabelList);
+
+router.post("/admin/label/add", productController.postAddLabel);
+
+router.get("/admin/label/add", productController.getAddLabel);
 
 //Delete item
 
 router.get("/category/del:idcanxoa", productController.getDeleteCategory);
 
-router.get("/delete.:idcanxoa", productController.getDeleteProduct);
+router.get("/delete:idcanxoa", productController.getDeleteProduct);
 
 //Modify item
 
@@ -95,9 +100,6 @@ router.post('/upimagetheme', upLoadImageTheme.any(), productController.getImageT
 router.get("/policy", productController.getPolicy);
 router.get("/info", productController.getInfomation);
 router.get("/return", productController.getReturn);
-// router.get("/admin/content", productController.getAddContent);
 router.get("/admin/content", productController.getEditContent);
 router.post("/admin/content", productController.postEditContent);
-// router.get("/admin/content.:idcansua", productController.getEditContent1);
-// router.post("/admin/content.:idcansua", productController.postEditContent1);
 module.exports = router;

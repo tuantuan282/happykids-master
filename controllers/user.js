@@ -69,13 +69,25 @@ exports.getAccountList = (req, res, next) => {
   });
 };
 
+
 exports.viewAdmin = (req, res, next) => {
-  Products.find({user: req.user}).then(
-    product => {
-        res.render("viewAdmin", {
-          title: "Admin",
-          prod: product,
-        });
-      }
-    );
+  var cartProduct;
+  if (!req.session.cart) {
+    cartProduct = null;
+  } else {
+    var cart = new Cart(req.session.cart);
+    cartProduct = cart.generateArray();
+  }
+  const messageSucc = req.flash("success")[0];
+  const messageError = req.flash("error")[0];
+  Products.find({ user: req.user }).then(product => {
+    res.render("viewAdmin", {
+      title: "Admin",
+      user: req.user,
+      cartProduct: cartProduct,
+      prod: product,
+      messageSucc: messageSucc,
+      messageError:messageError
+    });
+  });
 };

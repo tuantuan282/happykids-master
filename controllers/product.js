@@ -1,11 +1,11 @@
 var express = require("express");
-const Products = require("../models/product");
-const Categories = require("../models/productCategory");
-const Cart = require("../models/cart");
+var Products = require("../models/product");
+var Categories = require("../models/productCategory");
+var Labels = require("../models/label");
+var Cart = require("../models/cart");
 var Users = require("../models/user");
-const Order = require("../models/order");
-const order = require("../models/order");
-const Content = require("../models/content");
+var Order = require("../models/order");
+var Content = require("../models/content");
 
 
 var ITEM_PER_PAGE = 12;
@@ -374,8 +374,6 @@ exports.viewProductList = (req, res, next) => {
     );
 };
 
-
-
 exports.postAddProduct = async (req, res, next) => {
   var product = new Products({
     name: req.body.name,
@@ -405,13 +403,18 @@ exports.getAddProduct = (req, res, next) => {
     var cart = new Cart(req.session.cart);
     cartProduct = cart.generateArray();
   }
-  Categories.find({}, (err, category) => {
-    res.render("addProduct", {
-      title: "Add Product",
-      cartProduct: cartProduct,
-      category: category,
-    });
-  });
+  Categories.find()
+    .then(category => {
+      Labels.find()
+        .then(label => {
+          res.render("addProduct", {
+            title: "Add Product",
+            category: category,
+            label: label,
+            cartProduct: cartProduct
+          });
+        });
+    })
 };
 
 /* Post cho ảnh. */
@@ -469,6 +472,35 @@ exports.getAddCategory = (req, res, next) => {
   });
 };
 
+exports.viewLabelList= (req, res, next) => {
+  Labels.find({}, (err, label) => {
+    res.render('viewLabel', {
+      label: label,
+    });
+});
+};
+
+exports.postAddLabel = async (req, res, next) => {
+  var label = new Labels({
+    list: req.body.list,
+  }); 
+  label.save();
+  res.redirect("/admin/label");
+};
+
+exports.getAddLabel = (req, res, next) => {
+  if (!req.session.cart) {
+    cartProduct = null;
+  } else {
+    var cart = new Cart(req.session.cart);
+    cartProduct = cart.generateArray();
+  }
+  res.render("addLabel", {
+    title: "Add Label",
+    cartProduct: cartProduct
+  });
+};
+
 exports.getDeleteCategory = (req, res, next) => {
   var idcanxoa = req.params.idcanxoa;
   Categories.findByIdAndRemove(idcanxoa, (err, category) => {
@@ -479,13 +511,12 @@ exports.getDeleteCategory = (req, res, next) => {
 
 exports.getDeleteProduct = (req, res, next) => {
   var idcanxoa = chuyenObjectId(req.params.idcanxoa);
-  Products.findOne({_id: idcanxoa}, function (err, prod) {
+  Products.find({_id: idcanxoa}, function (err, prod) {
     Products.deleteOne({_id: idcanxoa}, function (err, prod) {
       res.redirect('/admin/product');
     });
   })
 };
-
 /** */
 var imageSlide = [];
 exports.getImageSlides = (req, res, next) => {
