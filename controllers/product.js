@@ -18,7 +18,7 @@ var psize;
 var plabel;
 var plowerprice;
 var price;
-var viewCounts;
+var name;
 var searchText;
 
 exports.getIndexProducts = (req, res, next) => {
@@ -80,12 +80,12 @@ exports.getProducts = (req, res, next) => {
   }
   
   if (SORT_ITEM == -2) {
-    sort_value = "VIEW: HIGH TO LOW";
-    viewCounts = "-1";
+    sort_value = "NAME: A-Z";
+    name = "-1";
   }
   if (SORT_ITEM == 2) {
-    sort_value = "VIEW: LOW TO HIGH";
-    viewCounts = "1";
+    sort_value = "NAME: Z-A";
+    name = "1";
   }
 
   if (Object.entries(req.query).length == 0) {
@@ -143,7 +143,7 @@ exports.getProducts = (req, res, next) => {
         .limit(ITEM_PER_PAGE)
         .sort({
           price,
-          viewCounts,
+          name,
         });
     })
     .then(products => {
