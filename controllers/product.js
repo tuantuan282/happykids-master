@@ -419,25 +419,6 @@ exports.getImage = (req, res, next) => {
   res.status(200).send(req.files); // gửi mã 200 khi up thành công
 };
 
-exports.getDeleteProduct = (req, res, next) => {
-  //var prodId = req.params.productId;
-  var idcanxoa = chuyenObjectId(req.params.idcanxoa);
-  //Products.findByIdAndDelete({_id: idcanxoa});
-    // prodId, (err, product) => {
-    // if (err) {
-    //   return res.redirect("back");
-    // }
-    // product.save();
-    //res.redirect("/admin/product");
-  //});
-  Products.find({_id: idcanxoa}, function (err, prod) {
-    Products.deleteOne({_id: idcanxoa}, function (err, prod) {
-      res.redirect('/admin/product');
-    });
-  })
-};
-
-
 exports.viewOrderList = (req, res, next) => {
   Order.find({}, (err, order) => {
     res.render('viewOrder', {
@@ -484,4 +465,22 @@ exports.getAddCategory = (req, res, next) => {
     title: "Add Category",
     cartProduct: cartProduct
   });
+};
+
+exports.getDeleteCategory = (req, res, next) => {
+  var idcanxoa = req.params.idcanxoa;
+  Categories.findByIdAndRemove(idcanxoa, (err, category) => {
+    category.save();
+    res.redirect('back');
+    });  
+};
+
+exports.getDeleteProduct = (req, res, next) => {
+  var idcanxoa = chuyenObjectId(req.params.idcanxoa);
+  Products.find({_id: idcanxoa}, function (err, prod) {
+    Products.deleteOne({_id: idcanxoa}, function (err, prod) {
+      prod.save();
+      res.redirect('back');
+    });
+  })
 };

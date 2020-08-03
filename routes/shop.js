@@ -49,8 +49,6 @@ router.post("/admin/product/add", productController.postAddProduct);
 
 router.get("/admin/product/add", productController.getAddProduct);
 
-router.get("/delete.:idcanxoa", productController.getDeleteProduct);
-
 router.get("/admin/product", productController.viewProductList);
 
 router.get("/admin/order", productController.viewOrderList);
@@ -64,8 +62,11 @@ router.post("/admin/category/add", productController.postAddCategory);
 router.get("/admin/category/add", productController.getAddCategory);
 
 
+//Delete item
 
+router.get("/category/del:idcanxoa", productController.getDeleteCategory);
 
+router.get("/del:idcanxoa", productController.getDeleteProduct);
 
-  
+//Modify item
 module.exports = router;
