@@ -5,6 +5,8 @@ const Cart = require("../models/cart");
 var Users = require("../models/user");
 const Order = require("../models/order");
 const order = require("../models/order");
+const Content = require("../models/content");
+
 
 var ITEM_PER_PAGE = 12;
 var SORT_ITEM;
@@ -477,10 +479,126 @@ exports.getDeleteCategory = (req, res, next) => {
 
 exports.getDeleteProduct = (req, res, next) => {
   var idcanxoa = chuyenObjectId(req.params.idcanxoa);
-  Products.find({_id: idcanxoa}, function (err, prod) {
+  Products.findOne({_id: idcanxoa}, function (err, prod) {
     Products.deleteOne({_id: idcanxoa}, function (err, prod) {
-      prod.save();
-      res.redirect('back');
+      res.redirect('/admin/product');
     });
   })
+};
+
+/** */
+var imageSlide = [];
+exports.getImageSlides = (req, res, next) => {
+  imageSlide.unshift(req.files[0].path); // đưa path của img vào mảng images  
+  res.status(200).send(req.files); // gửi mã 200 khi up thành công
+};
+var imageTheme = [];
+exports.getImageTheme = (req, res, next) => {
+  imageTheme.unshift(req.files[0].path); // đưa path của img vào mảng images  
+  res.status(200).send(req.files); // gửi mã 200 khi up thành công
+};
+
+exports.getEditContent = (req, res, next) => {
+  res.render("content", {
+    title: "Add Content Page",
+  });
+};
+
+exports.postEditContent = (req, res, next) => {
+  var content = new Content({
+    title1: req.body.title1,
+    title2: req.body.title2,
+    title3: req.body.title3,
+    policy: req.body.policy,
+    info: req.body.info,
+    returnexchange: req.body.returnexchange,
+    payment: req.body.payment,
+    imageSlide: imageSlide,
+    imageTheme: imageTheme
+  });
+  content.save();
+  res.redirect("/admin/content");
+};
+
+exports.getPolicy = (req, res, next) => {
+  var cartProduct;
+  if (!req.session.cart) {
+    cartProduct = null;
+  } else {
+    var cart = new Cart(req.session.cart);
+    cartProduct = cart.generateArray();
+  }
+
+  Products.find()
+    .then(products => {
+      Products.find()
+        .then(products2 => {
+          Content.find({}, function (err, content) { 
+            res.render("policy", {
+              title: "Policy",
+              user: req.user,
+              cartProduct: cartProduct,
+              cont: content             
+            });
+           })
+        });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+
+
+exports.getInfomation = (req, res, next) => {
+  var cartProduct;
+  if (!req.session.cart) {
+    cartProduct = null;
+  } else {
+    var cart = new Cart(req.session.cart);
+    cartProduct = cart.generateArray();
+  }
+  Products.find()
+    .then(products => {
+      Products.find()
+        .then(products2 => {
+          Content.find({}, function (err, content) { 
+            res.render("info", {
+              title: "ABOUT US",
+              user: req.user,
+              cartProduct: cartProduct,
+              cont: content             
+            });
+           })
+        });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+exports.getReturn = (req, res, next) => {
+  var cartProduct;
+  if (!req.session.cart) {
+    cartProduct = null;
+  } else {
+    var cart = new Cart(req.session.cart);
+    cartProduct = cart.generateArray();
+  }
+  Products.find()
+    .then(products => {
+      Products.find()
+        .then(products2 => {
+          Content.find({}, function (err, content) { 
+            res.render("return", {
+              title: "RETURNS AND EXCHANGE",
+              user: req.user,
+              cartProduct: cartProduct,
+              cont: content             
+              
+            });
+           })
+        });
+    })
+    .catch(err => {
+      console.log(err);
+    });
 };

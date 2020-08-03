@@ -27,15 +27,14 @@
                             <img width="100px" src="https://happykids.herokuapp.com/<%= product.images[0] %>" data-src="/<%= product.images[0] %>" alt="">
                         </td>
                         <td scope="row"> <a href="https://happykids.herokuapp.com/<%= product._id %>"><%= product.name %></a></td>
-
-                        <td><%= product.price %></td>
-                        <td><%= product.stock %></td>
-                        <td><%= product.size %></td>
-                        <td><%= product.productType.main %> - <%= product.productType.sub %></td>
-                        <td><%= product.dateAdded %></td>
-                        <td>
-                            <a href="/" class="btn btn-danger rounded-0">Edit</a> <a href="/del:<%= product._id %>" class="btn btn-secondary rounded-0">Delete</a>                                
-                        </td>
+                            <td><%= product.price %></td>
+                            <td><%= product.stock %></td>
+                            <td><%= product.size %></td>
+                            <td><%= product.productType.main %> - <%= product.productType.sub %></td>
+                            <td><%= product.dateAdded %></td>
+                            <td>
+                                <a href="/" class="btn btn-danger rounded-0">Edit</a> <a href="/delete.<%= product._id %>" class="btn btn-secondary rounded-0">Delete</a>                                
+                            </td>
                     </tr>
                     <% }) %>
                 </tbody>
