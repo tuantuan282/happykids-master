@@ -133,7 +133,8 @@ exports.getProducts = (req, res, next) => {
     "productType.sub": new RegExp(productChild, "i"),
     size: new RegExp(psize, "i"),
     price: { $gt: plowerprice, $lt: pprice },
-    labels: new RegExp(plabel, "i")
+    labels: new RegExp(plabel, "i"),
+    name: name,
   })
     .countDocuments()
     .then(numProduct => {
@@ -143,7 +144,8 @@ exports.getProducts = (req, res, next) => {
         "productType.sub": new RegExp(productChild, "i"),
         size: new RegExp(psize, "i"),
         price: { $gt: plowerprice, $lt: pprice },
-        labels: new RegExp(plabel, "i")
+        labels: new RegExp(plabel, "i"),
+        name: name,
       })
         .skip((page - 1) * ITEM_PER_PAGE)
         .limit(ITEM_PER_PAGE)
