@@ -42,14 +42,14 @@
                      <div class="tt-product-vertical-layout">
                         <div class="tt-product-single-img">
                            <div>
-                              <img class="zoom-product" src='<%= prod.images[0] %>' data-zoom-image="<%= prod.images[0] %>" alt="">
+                              <img class="zoom-product" src='https://happykids.herokuapp.com/<%= prod.images[0] %>' data-zoom-image="<%= prod.images[0] %>" alt="">
                            </div>
                         </div>
                         <div class="tt-product-single-carousel-vertical">
                            <ul id="smallGallery" class="tt-slick-button-vertical slick-animated-show-js">
-                              <li><a class="zoomGalleryActive" href="/#" data-image="<%= prod.images[0] %>" data-zoom-image="<%= prod.images[0] %>"><img src="<%= prod.images[0] %>" alt=""></a></li>
+                              <li><a class="zoomGalleryActive" href="/#" data-image="https://happykids.herokuapp.com/<%= prod.images[0] %>" data-zoom-image="https://happykids.herokuapp.com/<%= prod.images[0] %>"><img src="https://happykids.herokuapp.com/<%= prod.images[0] %>" alt=""></a></li>
                               <% prod.images.forEach(function(image) { %>
-                              <li><a href="/#" data-image="<%= image %>" data-zoom-image="<%= image %>"><img src="<%= image %>" alt=""></a></li>
+                              <li><a href="/#" data-image="<%= image %>" data-zoom-image="https://happykids.herokuapp.com/<%= image %>"><img src="https://happykids.herokuapp.com/<%= image %>" alt=""></a></li>
                               <% }); %>
                            </ul>
                         </div>
