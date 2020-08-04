@@ -426,7 +426,7 @@ exports.getAddProduct = (req, res, next) => {
 /* Post cho ảnh. */
 var images = [];
 exports.getImage = (req, res, next) => {
-  images.push(req.files[0].path); // đưa path của img vào mảng images  
+  images.unshift(req.files[0].path); // đưa path của img vào mảng images  
   res.status(200).send(req.files); // gửi mã 200 khi up thành công
 };
 
