@@ -134,7 +134,6 @@ exports.getProducts = (req, res, next) => {
     size: new RegExp(psize, "i"),
     price: { $gt: plowerprice, $lt: pprice },
     labels: new RegExp(plabel, "i"),
-    name: name,
   })
     .countDocuments()
     .then(numProduct => {
@@ -145,7 +144,6 @@ exports.getProducts = (req, res, next) => {
         size: new RegExp(psize, "i"),
         price: { $gt: plowerprice, $lt: pprice },
         labels: new RegExp(plabel, "i"),
-        name: name,
       })
         .skip((page - 1) * ITEM_PER_PAGE)
         .limit(ITEM_PER_PAGE)
