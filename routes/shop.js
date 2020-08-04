@@ -36,24 +36,52 @@ router.get("/merge-cart", productController.mergeCart);
 var multer  = require('multer');
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, 'uploads')
+      cb(null, './uploads')
     },
     filename: function (req, file, cb) {
       cb(null, Date.now()+ '-' + file.originalname)
     }
   });
 var upload = multer({ storage: storage });
+
+// up ảnh slide
+var storage1 = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, './image_slides')
+    },
+    filename: function (req, file, cb) {
+      cb(null, Date.now()+ '-' + file.originalname)
+    }
+  });
+var upLoadImageSlide = multer({ storage: storage1 });
+
+//up ảnh theo chủ đề
+var storage2 = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, './image_theme')
+    },
+    filename: function (req, file, cb) {
+      cb(null, Date.now()+ '-' + file.originalname)
+    }
+  });
+var upLoadImageTheme = multer({ storage: storage2 });
+
+
 router.post('/upimage', upload.any(), productController.getImage);
+router.post('/upimageslides', upLoadImageSlide.any(), productController.getImageSlides);
+router.post('/upimagetheme', upLoadImageTheme.any(), productController.getImageTheme);
 
 router.post("/admin/product/add", productController.postAddProduct);
 
 router.get("/admin/product/add", productController.getAddProduct);
 
+router.get("/delete.:idcanxoa", productController.getDeleteProduct);
+router.get("/edit.:idcansua", productController.getEditProduct);
+router.post("/edit.:idcansua", productController.postEditProduct);
+
 router.get("/admin/product", productController.viewProductList);
 
 router.get("/admin/order", productController.viewOrderList);
-
-router.post("/admin/order", productController.changeOrderStatus);
 
 router.get("/admin/category", productController.viewCategoryList);
 
@@ -61,45 +89,20 @@ router.post("/admin/category/add", productController.postAddCategory);
 
 router.get("/admin/category/add", productController.getAddCategory);
 
+router.get("/admin/category/delete.:idcanxoa", productController.getDeleteCategory);
+
 router.get("/admin/label", productController.viewLabelList);
-
-router.post("/admin/label/add", productController.postAddLabel);
-
 router.get("/admin/label/add", productController.getAddLabel);
+router.post("/admin/label/add", productController.postAddLabel);
+router.get("/admin/label/delete.:idcanxoa", productController.getDeleteLabel);
 
-//Delete item
-
-router.get("/category/del:idcanxoa", productController.getDeleteCategory);
-
-router.get("/delete:idcanxoa", productController.getDeleteProduct);
-
-//Modify item
-
-//vynguyen
-var storage1 = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './image_slides')
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now()+ '-' + file.originalname)
-  }
-});
-var upLoadImageSlide = multer({ storage: storage1 });
-//up ảnh theo chủ đề
-var storage2 = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './image_theme')
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now()+ '-' + file.originalname)
-  }
-});
-var upLoadImageTheme = multer({ storage: storage2 });
-router.post('/upimageslides', upLoadImageSlide.any(), productController.getImageSlides);
-router.post('/upimagetheme', upLoadImageTheme.any(), productController.getImageTheme);
+router.get("/admin/content", productController.getEditContent);
+router.post("/admin/content", productController.postEditContent);
 router.get("/policy", productController.getPolicy);
 router.get("/info", productController.getInfomation);
 router.get("/return", productController.getReturn);
-router.get("/admin/content", productController.getEditContent);
-router.post("/admin/content", productController.postEditContent);
+
+
+
+  
 module.exports = router;

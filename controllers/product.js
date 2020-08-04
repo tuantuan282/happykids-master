@@ -20,6 +20,8 @@ var plowerprice;
 var price;
 var name;
 var searchText;
+var chuyenObjectId = require('mongodb').ObjectID;
+
 
 exports.getIndexProducts = (req, res, next) => {
   var cartProduct;
@@ -36,13 +38,17 @@ exports.getIndexProducts = (req, res, next) => {
         .limit(4)
         .sort("buyCounts")
         .then(products2 => {
-          res.render("index", {
-            title: "HOMEPAGE",
-            user: req.user,
-            trendings: products,
-            hots: products2,
-            cartProduct: cartProduct
-          });
+          Content.find({}, function (err, content) { 
+            res.render("index", {
+              title: "HOME",
+              user: req.user,
+              trendings: products,
+              hots: products2,
+              cartProduct: cartProduct,
+              cont: content             
+              
+            });
+           })
         });
     })
     .catch(err => {
@@ -78,7 +84,7 @@ exports.getProducts = (req, res, next) => {
     sort_value = "PRICE: LOW TO HIGH";
     price = "1";
   }
-  
+  /*
   if (SORT_ITEM == -2) {
     sort_value = "NAME: A-Z";
     name = "1";
@@ -87,7 +93,7 @@ exports.getProducts = (req, res, next) => {
     sort_value = "NAME: Z-A";
     name = "-1";
   }
-
+  */
   if (Object.entries(req.query).length == 0) {
     ptype = "";
     psize = "";
@@ -127,7 +133,7 @@ exports.getProducts = (req, res, next) => {
     "productType.sub": new RegExp(productChild, "i"),
     size: new RegExp(psize, "i"),
     price: { $gt: plowerprice, $lt: pprice },
-    labels: new RegExp(plabel, "i")
+    labels: new RegExp(plabel, "i"),
   })
     .countDocuments()
     .then(numProduct => {
@@ -137,13 +143,13 @@ exports.getProducts = (req, res, next) => {
         "productType.sub": new RegExp(productChild, "i"),
         size: new RegExp(psize, "i"),
         price: { $gt: plowerprice, $lt: pprice },
-        labels: new RegExp(plabel, "i")
+        labels: new RegExp(plabel, "i"),
       })
         .skip((page - 1) * ITEM_PER_PAGE)
         .limit(ITEM_PER_PAGE)
         .sort({
           price,
-          name,
+          //name,
         });
     })
     .then(products => {
@@ -420,7 +426,7 @@ exports.getAddProduct = (req, res, next) => {
 /* Post cho ảnh. */
 var images = [];
 exports.getImage = (req, res, next) => {
-  images.push(req.files[0].path); // đưa path của img vào mảng images  
+  images.unshift(req.files[0].path); // đưa path của img vào mảng images  
   res.status(200).send(req.files); // gửi mã 200 khi up thành công
 };
 
@@ -430,15 +436,6 @@ exports.viewOrderList = (req, res, next) => {
       order: order,
     });
 });
-};
-
-
-exports.changeOrderStatus = (req, res, next) => {
-  var orderStatus = new Order({
-    orderStatus: req.body.orderStatus,
-  }); 
-  order.save();
-  res.redirect("/admin/order");
 };
 
 
@@ -501,22 +498,6 @@ exports.getAddLabel = (req, res, next) => {
   });
 };
 
-exports.getDeleteCategory = (req, res, next) => {
-  var idcanxoa = req.params.idcanxoa;
-  Categories.findByIdAndRemove(idcanxoa, (err, category) => {
-    category.save();
-    res.redirect('back');
-    });  
-};
-
-exports.getDeleteProduct = (req, res, next) => {
-  var idcanxoa = chuyenObjectId(req.params.idcanxoa);
-  Products.find({_id: idcanxoa}, function (err, prod) {
-    Products.deleteOne({_id: idcanxoa}, function (err, prod) {
-      res.redirect('/admin/product');
-    });
-  })
-};
 /** */
 var imageSlide = [];
 exports.getImageSlides = (req, res, next) => {
@@ -633,3 +614,81 @@ exports.getReturn = (req, res, next) => {
       console.log(err);
     });
 };
+
+// sửa product
+
+exports.getEditProduct = (req, res, next) => {
+  var idcansua = req.params.idcansua;
+  if (!req.session.cart) {
+    cartProduct = null;
+  } else {
+    var cart = new Cart(req.session.cart);
+    cartProduct = cart.generateArray();
+  }
+  Categories.find({}, (err, category) => {
+
+    Products.find({_id: idcansua}, function (err, product) { 
+      res.render("editProduct", {
+        title: "Edit Product",
+        cartProduct: cartProduct,
+        category: category,
+        prod: product
+      });
+     })
+  });
+};
+
+exports.postEditProduct = (req, res, next) => {
+  var idcansua = req.params.idcansua;
+  Products.findByIdAndUpdate(idcansua, {$set:
+    {
+    name: req.body.name,
+    description: req.body.description,
+    price: req.body.price,
+    stock: req.body.stock,
+    size: req.body.size,
+    // dateAdded: req.body.dateAdded,
+    labels: req.body.labels,
+    materials: req.body.materials,
+    productType: { 
+      main: req.body.main, 
+      sub: req.body.sub,
+    },
+    tags: req.body.tags,
+  }
+}, function (err, product) { 
+  product.save();
+ });
+  
+  res.redirect("/admin/product");
+};
+
+exports.getDeleteCategory = (req, res, next) => {
+  var idcanxoa = chuyenObjectId(req.params.idcanxoa);
+  Categories.find({_id: idcanxoa}, function (err, prod) {
+    Categories.deleteOne({_id: idcanxoa}, function (err, prod) {
+      res.redirect('/admin/category');
+    });
+  })
+};
+
+exports.getDeleteProduct = (req, res, next) => {
+  var idcanxoa = chuyenObjectId(req.params.idcanxoa);
+  Products.find({_id: idcanxoa}, function (err, prod) {
+    Products.deleteOne({_id: idcanxoa}, function (err, prod) {
+      res.redirect('/admin/product');
+    });
+  })
+};
+
+exports.getDeleteLabel = (req, res, next) => {
+  var idcanxoa = chuyenObjectId(req.params.idcanxoa);
+  Labels.find({_id: idcanxoa}, function (err, prod) {
+    Labels.deleteOne({_id: idcanxoa}, function (err, prod) {
+      res.redirect('/admin/label');
+    });
+  })
+};
+
+
+
