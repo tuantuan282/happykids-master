@@ -439,15 +439,6 @@ exports.viewOrderList = (req, res, next) => {
 };
 
 
-exports.changeOrderStatus = (req, res, next) => {
-  var orderStatus = new Order({
-    orderStatus: req.body.orderStatus,
-  }); 
-  order.save();
-  res.redirect("/admin/order");
-};
-
-
 exports.viewCategoryList= (req, res, next) => {
   Categories.find({}, (err, category) => {
     res.render('viewCategory', {
@@ -698,3 +689,6 @@ exports.getDeleteLabel = (req, res, next) => {
     });
   })
 };
+
+
+
