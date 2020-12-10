@@ -19,9 +19,9 @@ app.use(compression());
 mongoose.set('useCreateIndex', true);
 
 var url = process.env.MONGOLAB_URI;
-var urlConnect  = "mongodb+srv://happykid_uit:happykid_uit@cluster0.bly9c.mongodb.net/test?retryWrites=true&w=majority";
+var urlConnect = "mongodb+srv://happykid_uit:happykid_uit@cluster0.bly9c.mongodb.net/test?retryWrites=true&w=majority";
 // Connect to database
-mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, err => {
+mongoose.connect(urlConnect, { useNewUrlParser: true, useUnifiedTopology: true }, err => {
   if (err) throw err;
   console.log('Connect successfullyy!!');
 });
@@ -62,12 +62,12 @@ app.use(productRouter);
 require('./config/passport')(passport);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   var cartProduct;
   if (!req.session.cart) {
     cartProduct = null;
